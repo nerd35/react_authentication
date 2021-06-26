@@ -2,6 +2,7 @@ import React, {useEffect, useState } from 'react';
 import './App.css';
 import {NavBar} from './layouts';
 import {Login, Signup} from './auth'
+import { Customer } from './views'
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       user !== null ? (
         <>
           <NavBar setUserState={() => setUser(null) }/>
+          <Customer/>
         </>
       ) : (
         <>

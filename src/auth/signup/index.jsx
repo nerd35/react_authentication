@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, CssBaseline, Avatar, Typography, FormControlLabel, Button,
-Checkbox, Grid, Link, makeStyles, Card, CardContent} from '@material-ui/core';
+import { Container, CssBaseline, Avatar, Typography,  Button,
+ Grid, Link, makeStyles, Card, CardContent} from '@material-ui/core';
 
 import { LockRounded} from '@material-ui/icons';
 
@@ -29,7 +29,7 @@ const Signup = (props) => {
                 toast.success('User Registered Successfully');
             }
         }).catch((error) => {
-            switch (error.code) {
+            switch(error.code) {
                 case 'auth/email-already-in-use':
                     toast.error(error.message);
                     break;
