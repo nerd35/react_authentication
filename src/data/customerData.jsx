@@ -1,30 +1,64 @@
-import firebase from '../helpers/db';
-import Customer from '../models/customer';
+import firebase from "../helpers/db";
+import Customer from "../models/customer";
 
-const firestore = firebase.firestore()
+const firestore = firebase.firestore();
 
 export const getCustomers = async () => {
+  try {
+    const response = await firestore.collection("customer");
+    const data = await response.get();
+    let array = [];
+
+    data.forEach((doc) => {
+      const customer = new Customer(
+        doc.id,
+        doc.data().firstname,
+        doc.data().lastname,
+        doc.data().bvn,
+        doc.data().phonenumber,
+        doc.data().gender,
+        doc.data().maritalstatus,
+        doc.data().city,
+        doc.data().country
+      );
+      array.push(customer);
+    });
+    return array;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const addCustomer = async (customer) => {
+  try {
+    await firestore.collection("customer").doc().set(customer);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getCustomer = async  (id) => {
+  try {
+    const customer = await firestore.collection('customer').doc(id);
+    const data = await customer.get();
+    return data.data();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateCustomer = async (id, data) => {
     try {
-        const response = await firestore.collection('customer');
-        const data = await response.get();
-        let array = [];
+        const customer = await firestore.collection('customer').doc(id);
+        await customer.update(data);
+    } catch (error) {
+        throw error;
+    }
+}
 
-        data.forEach(doc => {
-            const customer = new Customer(
-                doc.id,
-                doc.data().firstname,
-                doc.data().lastname,
-                doc.data().bvn,
-                doc.data().phonenumber,
-                doc.data().gender,
-                doc.data().maritalstatus,
-                doc.data().city,
-                doc.data().country,
-
-            )
-            array.push(customer);
-        })
-        return array;
+export const deleteCustomer = async (id) => {
+    try {
+        await firestore.collection('customer').doc(id).delete();
     } catch (error) {
         throw error;
     }
