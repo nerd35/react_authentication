@@ -18,11 +18,11 @@ const CustomerDialogBox = (props) => {
 
   return (
     <Dialog
-      fullWidth={true}
-      maxWidth="lg"
-      open={props.open}
-      onClose={props.close}
-      aria-labelledby="max-width-dialog-title"
+    fullWidth={true}
+    maxWidth='lg'
+    open={props.open}
+    onClose={props.close}
+    aria-labelledby="max-width-dialog-title"
     >
       <DialogTitle>{props.formmode ? 'Add New' : 'Update'} Customer</DialogTitle>
       <ValidatorForm onSubmit={props.addCustomer} onError={errors => {
